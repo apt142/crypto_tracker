@@ -3,13 +3,16 @@ repos:
     rev: 5.13.2
     hooks:
       - id: isort
+        exclude: ^.*\b(migrations)\b.*$
         name: isort (python)
   - repo: https://github.com/pycqa/flake8
     rev: '7.1.1'  # pick a git hash / tag to point to
     hooks:
-    -   id: flake8
+      - id: flake8
+        exclude: ^.*\b(migrations)\b.*$
   - repo: https://github.com/psf/black
     rev: 24.8.0
     hooks:
-    - id: black
-      language_version: python3.12
+      - id: black
+        exclude: ^.*\b(migrations)\b.*$
+        language_version: python3.12

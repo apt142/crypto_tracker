@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "core",
 ]
 
 MIDDLEWARE = [
@@ -92,8 +94,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("POSTGRES_DB", "hello"),
-        "USER": os.getenv("POSTGRES_USER", "hello"),
+        "NAME": os.getenv("POSTGRES_DB", "crypto_tracker"),
+        "USER": os.getenv("POSTGRES_USER", "admin"),
         "PASSWORD": os.getenv("POSTGRES_PASSWORD", "password"),
         "HOST": os.getenv("POSTGRES_HOST", "postgres"),
         "PORT": os.getenv("POSTGRES_PORT", "5432"),
@@ -103,6 +105,10 @@ DATABASES = {
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+
+# Override standard User Model
+AUTH_USER_MODEL = "core.User"
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -168,3 +174,12 @@ if DEBUG:
         "127.0.0.1",
         "10.0.2.2",
     ]
+
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
+}
