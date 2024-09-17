@@ -162,6 +162,8 @@ Run Django commands:
 
 For maintainability, I'd want to add typing to the project.
 
+Everything here though is build on a really solid django stack. So, porting it to a more robust environment shouldn't require hardly any code changes to scale on the server level.
+
 > What would you change if you needed to track many other metrics or support every exchange and pair available?
 
 I made the `CurrencySpecificDatem` object really small with concise values so that it could be queried really easily. This should add utility for aggregate functions. If performance was at a high premium, I'd change `currency` and `crypto_id` to integer fields so that DB indexing is much faster with those and searching by string.
