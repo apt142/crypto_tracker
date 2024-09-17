@@ -33,7 +33,7 @@ class RawCurrencySnapshot(models.Model):
 class CurrencySpecificDatem(models.Model):
     crypto_id = models.CharField(max_length=128, db_index=True)
     currency = models.CharField(db_index=True)
-    value = models.FloatField()
+    value = models.FloatField(null=True)
     raw_data = models.ForeignKey(
         "RawCurrencySnapshot", on_delete=models.CASCADE
     )

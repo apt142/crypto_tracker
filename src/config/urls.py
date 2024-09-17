@@ -25,6 +25,7 @@ urlpatterns = [
     path("", include("pages.urls")),
     path("admin/", admin.site.urls),
     path("api-auth/", include("rest_framework.urls")),
+    path("api/", include("data_collection.urls")),
 ]
 if not settings.TESTING:
     urlpatterns = [
