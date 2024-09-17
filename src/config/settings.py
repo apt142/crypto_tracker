@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "rest_framework",
     "core",
+    "data_collection",
 ]
 
 MIDDLEWARE = [
@@ -183,3 +184,6 @@ REST_FRAMEWORK = {
         "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
     ]
 }
+
+
+COIN_GECKO_API_KEY = os.environ.get("COIN_GECKO_API_KEY")

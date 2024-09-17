@@ -76,6 +76,20 @@ docker compose up --build
 Once docker has initalized and is running you can visit the project at: <http://localhost:8000>
 
 
+### Initialize your environment
+
+The first thing you'll want to do is run your migrations
+
+```
+./run manage migrate
+```
+
+Next, you'll need to new super user.
+```
+./run manage createsuperuser
+```
+
+
 ### Tools for ongoing development
 
 #### Install Pre-commit
@@ -114,6 +128,33 @@ Run Django commands:
 ```
 
 
-ssh into main host
-ssh into celery
+## Next Steps
 
+### Scalability
+
+For maintainability, I'd want to add typing to the project.
+
+> What would you change if you needed to track many other metrics or support every exchange and pair available?
+
+I made the `CurrencySpecificDatem` object really small with concise values so that it could be queried really easily. This should add utility for aggregate functions. If performance was at a high premium, I'd change `currency` and `crypto_id` to integer fields so that DB indexing is much faster with those and searching by string.
+
+
+> What if you needed to sample them more frequently?
+
+Database volume becomes an issue. In addition, I'm doing some post processing after retrieving and storing. If retrieval volume went up, I'd move that post processing to a celery task.
+
+
+> What if you had many users accessing your dashboard to view metrics?
+
+Calculating the aggregates post retrieval and then caching them would help with a lot of users looking at the same data. The initial assumption here is that we'd just hit the db for this data. But, if we can decide on specific cookie cutter sized data that we think our users want, we could pre-package it.
+
+
+
+### Production Readiness
+
+Because the environmental variable are abstracted out and the code is already ready for a container, going to production shouldn't be too difficult. We'd need to have a system to maintain the secrets and to build out the environment files on deploy.
+
+
+### Testing
+
+How would you extend testing for an application of this kind (beyond what you implemented)?
